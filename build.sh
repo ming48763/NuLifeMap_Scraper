@@ -7,6 +7,5 @@ pip install -r requirements.txt
 
 # 安裝 Playwright 瀏覽器核心與其依賴的系統套件
 playwright install chromium
-playwright install-deps chromium
 
 
