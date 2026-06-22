@@ -122,8 +122,12 @@ async def scrape_url(req: ScrapeRequest):
             }
         }
 
-        # 將爬取好的資料傳回 Node.js 進行資料庫存檔
-        requests.post("http://127.0.0.1:3000/api/markers", json=scraped_data)
+        try:
+            requests.post(f"{BACKEND_URL}/api/markers", json=scraped_data)
+            print("✅ 成功將資料回傳給 Node.js")
+        except Exception as e:
+            print(f"❌ 傳回 Node.js 失敗: {e}")
+            
         return {"status": "success", "message": "職缺資料萃取成功！", "data": scraped_data}
 
     except Exception as e:
@@ -217,9 +221,13 @@ async def scrape_591(req: ScrapeRequest):
         }
 
         # 將爬取好的資料傳回 Node.js 進行資料庫存檔
-        requests.post("http://127.0.0.1:3000/api/markers", json=scraped_data)
+        try:
+            requests.post(f"{BACKEND_URL}/api/markers", json=scraped_data)
+            print("✅ 成功將資料回傳給 Node.js")
+        except Exception as e:
+            print(f"❌ 傳回 Node.js 失敗: {e}")
+            
         return {"status": "success", "message": "591 租屋資料擷取成功！", "data": scraped_data}
-
     except Exception as e:
         print(traceback.format_exc())
         raise HTTPException(status_code=500, detail=f"內部伺服器錯誤: {str(e)}")
