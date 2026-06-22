@@ -13,6 +13,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:3000")
 
 app = FastAPI()
 app.add_middleware(
@@ -59,6 +60,7 @@ class ScrapeRequest(BaseModel):
 # ==================================================
 @app.post("/scrape/url")
 async def scrape_url(req: ScrapeRequest):
+    print(f"🚀 成功收到 Node.js 傳來的網址: {req.url}")
     try:
         print(f"準備出動 Playwright 前往：{req.url} (User: {req.user_id})")
         async with async_playwright() as p:
@@ -133,6 +135,7 @@ async def scrape_url(req: ScrapeRequest):
 # ==================================================
 @app.post("/scrape/591")
 async def scrape_591(req: ScrapeRequest):
+    print(f"🚀 成功收到 Node.js 傳來的網址: {req.url}")
     try:
         print(f"🏠 準備出動前往 591：{req.url} (User: {req.user_id})")
         async with async_playwright() as p:
